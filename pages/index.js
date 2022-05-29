@@ -1,8 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  // const client_id = "YourAPIKeyGoesHEre"
+  const client_id = process.env.SONOS_KEY;
+  const response_type = "code";
+  const state = "testState";
+  const scope = "playback-control-all";
+  const redirect_uri = "https%3A%2F%2Facme.example.com%2Flogin%2Ftestclient%2Fauthorized.html";
+
+  const url = `https://api.sonos.com/login/v3/oauth?client_id=${client_id}?response_type=${response_type}?state=${state}?scope=${scope}?redirect_uri=${redirect_uri}`;
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,40 +27,15 @@ export default function Home() {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <Link href={url}>
+          HERE
+        </Link>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <button
+          onClick={`location.href='${url}'`}
+          type="button">
+          Sign in with Sonos
+        </button>
       </main>
 
       <footer className={styles.footer}>
